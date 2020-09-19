@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions" />
+      <Folder Include="Models" />
+      <Folder Include="Views\Shared" />
+      <Folder Include="wwwroot\lib" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GameCentral.Shared\GameCentral.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

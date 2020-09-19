@@ -1,0 +1,51 @@
+﻿@model GameCentral.Shared.Entities.Game
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@(Model == null ? "Unknown" : Model.Title)</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<div class="text-center table-bordered">
+    @if (Model != null) {
+        <br/>
+        <h2>@Model.Title</h2>
+        <br/>
+        <h5>@Model.Description</h5>
+        <br/>
+        <table class="table table-striped text-center">
+            <tbody>
+            <tr>
+                <td>Genre</td>
+                <td>@Model.Genre</td>
+            </tr>
+            <tr>
+                <td>Studio</td>
+                <td>@Model.Studio</td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td>@Model.Publisher</td>
+            </tr>
+            <tr>
+                <td>Cost</td>
+                <td>@Model.Cost</td>
+            </tr>
+            </tbody>
+        </table>
+    }
+    else {
+        <h2>No game with such Id</h2>   
+    }
+    <br/>
+</div>
+    <a class="btn btn-secondary" asp-action="ListGames" style="margin: 10px">Go back</a>
+</body>
+</html>

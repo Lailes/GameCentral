@@ -1,0 +1,60 @@
+﻿@model IEnumerable<GameCentral.Shared.Entities.Game>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Games</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<br/>
+<h2 class="text-center">Here list of available games:</h2>
+<br/>
+<div class="text-center">
+    @if (Model.Any()) {
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Studio</th>
+                <th>Genre</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var game in Model) {
+                <tr>
+                    <td>
+                        <a asp-action="GameDetails" asp-route-id=@game.GameId>@game.Title</a>
+                    </td>
+                    <td>@game.Studio</td>
+                    <td>@game.Genre</td>
+                    <td>@(game.Cost + "$")</td>
+                    <td width="8%">
+                        <a class="btn btn-light" asp-action="EditGame" asp-route-title=@game.Title asp-route-id=@game.GameId>Edit</a>
+                    </td>
+                    <td width="8%">
+                        <form method="post">
+                            <input type="hidden" name="deleteId" value=@game.GameId>
+                            <button type="submit" class="btn btn-light">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else {
+        <h2>There are no games yet</h2>
+    }
+    <h4><a class="btn-primary btn" asp-action="Index">Go to home page</a></h4>
+    <h6><a class="btn btn-secondary" asp-action="AddGame">Add game</a></h6>
+</div>
+</body>
+</html>

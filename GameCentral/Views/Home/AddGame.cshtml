@@ -1,0 +1,68 @@
+﻿@model GameCentral.Shared.Entities.Game
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Add</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<div class="text-center">
+    <br/>
+    <h2>Fill out the form for adding data</h2>
+    <br/>
+    <div asp-validation-summary="All"></div>
+    <form method="post">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Title</td>
+                <td>
+                    <input asp-for="Title" class="form-control"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Genre</td>
+                <td>
+                    <input asp-for="Genre" class="form-control"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Studio</td>
+                <td>
+                    <input asp-for="Studio" class="form-control"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Publisher</td>
+                <td>
+                    <input asp-for="Publisher" class="form-control"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Cost</td>
+                <td>
+                    <input asp-for="Cost" class="form-control"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>
+                    <input asp-for="Description" type="text" aria-multiline="true" class="form-control"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Add game</button>
+    </form>
+    <br/>
+    <a asp-action="ListGames">Go back</a>
+</div>
+</body>
+</html>
