@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using GameCentral.Shared.Database;
 using GameCentral.Shared.Entities;
 using GameCentral.Shared.Exceptions;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GameCentral.API.Controllers {
-    
+namespace GameCentral.API.Controllers
+{
+
     [ApiController]
     [Route("[controller]")]
     public class ApiController : ControllerBase {
@@ -17,7 +20,7 @@ namespace GameCentral.API.Controllers {
             _database = database;
         }
 
-        [HttpGet]
+        [HttpGet("games")]
         public async Task<ActionResult<IEnumerable<Game>>> Get(){
             try {
                 var games =  await _database.GetGamesAsync();
@@ -28,8 +31,8 @@ namespace GameCentral.API.Controllers {
             }
         }
         
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> Get(string id) {
+        [HttpGet("games/{id}")]
+        public async Task<ActionResult<Game>> Get(int id) {
             try {
                 var game = await _database.GetGameAsync(id);
                 return Ok(game);
@@ -42,8 +45,8 @@ namespace GameCentral.API.Controllers {
             }
         }
         
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id) {
+        [HttpDelete("games/{id}")]
+        public async Task<IActionResult> Delete(int id) {
             try {
                 await _database.RemoveGameAsync(id);
                 return Ok(id);
@@ -56,8 +59,8 @@ namespace GameCentral.API.Controllers {
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(Game game) {
+        [HttpPost("games")]
+        public async Task<IActionResult> Post([FromBody] Game game) {
             try {
                 await _database.AddGameAsync(game);
                 return CreatedAtAction("Post", game);
@@ -67,15 +70,16 @@ namespace GameCentral.API.Controllers {
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string id, Game game) {
+        [HttpPut("games/{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Game game) {
             try {
                 game.GameId = id;
                 await _database.EditGameAsync(game);
                 return Ok(game);
             }
             catch (GameNotExistsException e) {
-                return NotFound(id);
+                await _database.AddGameAsync(game);
+                return CreatedAtAction("Put", game);
             }
             catch (Exception e) {
                 return Problem(detail: e.Message, statusCode: 500);

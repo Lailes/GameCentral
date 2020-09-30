@@ -5,17 +5,17 @@ using GameCentral.Shared.Exceptions;
 
 namespace GameCentral.Shared.Database {
     public class FakeDatabase : IDatabase {
-        private readonly Dictionary<string, Game> _games = new Dictionary<string, Game>() {
-            {"one", new Game() {GameId = "one", Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
-            {"two", new Game() {GameId = "two", Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
-            {"three", new Game() {GameId = "three", Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
-            {"four", new Game() {GameId = "four", Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
-            {"five", new Game() {GameId = "five", Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}}
+        private readonly Dictionary<int, Game> _games = new Dictionary<int, Game>() {
+            {0, new Game() {GameId = 0, Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
+            {1, new Game() {GameId = 1, Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
+            {2, new Game() {GameId = 2, Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
+            {3, new Game() {GameId = 3, Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}},
+            {4, new Game() {GameId = 4, Cost = 10, Description = "disc", Genre = "RPG", Publisher = "EA"}}
         };
 
         public IEnumerable<Game> Games => _games.Values;
 
-        public async Task RemoveGameAsync(string id) {
+        public async Task RemoveGameAsync(int id) {
             var wasDeleted = _games.Remove(id);
             if (!wasDeleted) {
                 throw new GameNotExistsException();
@@ -38,7 +38,7 @@ namespace GameCentral.Shared.Database {
             _games.Add(game.GameId, game);
         }
 
-        public async Task<Game> GetGameAsync(string id) {
+        public async Task<Game> GetGameAsync(int id) {
             if (!_games.ContainsKey(id)) {
                 throw new GameNotExistsException();
             }

@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="games-app">
+<head>
+    <title id="title">Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+    <script src="js/lib/angular.js"></script>
+    <script>
+        var app = angular.module("games-app", [])
+    </script>
+</head>
+<body id="body" ng-controller="gamesController">
+
+<div class="text-center" ng-show="Page == 'Home_Page'">
+    <br/>
+    <h2>Welocome to {{Company.Name}} Store!</h2>
+    <br/>
+    <h3>Our company is selling video games</h3>
+    <h4></h4>
+    <br/>
+    <h4><a class="btn btn-primary" ng-click="ShowGames(true)" >Look for cool video games</a></h4>
+    <br/>
+    <h5><a class="btn btn-light" ng-click="About()" >About</a></h5>
+</div>
+
+<div class="text-center" ng-show="Page == 'About_Page'">
+    <br/>
+    <h1>We are selling games.</h1>
+    <br/>
+    <h2>Thats all</h2>
+    <br/>
+    <a class="btn btn-secondary" ng-click="GoHome('title')">Go home</a>
+</div>
+
+<div class="container" ng-show="Page == 'Add_Page'">
+    <br/>
+    <h2 class="text-center">Fill game data</h2>
+    <br/>
+    <form name="addForm" ng-submit="SubmitAddForm()">
+        <div class="form-group">
+            <label>Title</label>
+            <input class="form-control" ng-model="GameAdd.title" type="text" name="title" 
+                   required placeholder="Enter title">
+        </div>
+        <div class="form-group">
+            <label>Genre</label>
+            <input class="form-control" ng-model="GameAdd.genre" type="text" name="genre"
+                   required placeholder="Enter genre">
+        </div>
+        <div class="form-group">
+            <label>Studio</label>
+            <input class="form-control" ng-model="GameAdd.studio" type="text" name="studio" 
+                   required placeholder="Enter studio">
+        </div>
+        <div class="form-group">
+            <label>Publisher</label>
+            <input class="form-control" ng-model="GameAdd.publisher" type="text" name="publisher"
+                required placeholder="Enter publisher">
+        </div>
+        <div class="form-group">
+            <label>Cost</label>
+            <input class="form-control" ng-model="GameAdd.cost" type="number" name="cost"
+                   required placeholder="Enter cost">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input class="form-control" ng-model="GameAdd.description" type="text" name="description"
+                   required placeholder="Enter description">
+        </div>
+        <button class="btn btn-primary" type="submit">Add game</button>
+        <a class="btn btn-primary" ng-click="ShowGames()">Go back</a>
+    </form>
+    <br/>
+</div>
+
+<div class="text-center" ng-show="Page == 'Error_Page'">
+    <h1>ERROR</h1>
+    <h4>{{errorDetail.message}}</h4>
+    <br/>
+    <h5>{{errorDetail.errorCode}}</h5>
+    <br/>
+    <br/>
+    <a class="btn btn-primary text-center" ng-click="GoHome()">Go home</a>
+</div>
+
+<div class="text-center" ng-show="Page == 'ShowGames_Page'">
+    <br/>
+    <h2 class="text-center">Here list of avalible games:</h2>
+    <br/>
+    <table ng-show="Games.length > 0" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Studio</th>
+            <th>Genre</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="game in Games">
+            <td><h6><a ng-click="ViewGameDetails(game.gameId, game.title)">{{game.title}}</a></h6></td>
+            <td>{{game.studio}}</td>
+            <td>{{game.genre}}</td>
+            <td>{{game.cost}}</td>
+            <td>
+                <a class="btn btn-secondary" ng-click="ShowEditGame(game.gameId, game.title)">Edit</a>
+                <a class="btn btn-light" ng-click="DeleteGame(game.gameId)">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div ng-show="Games.length == 0">
+        <br/>
+        <br/>
+        <h2 >Here no avalible games left</h2>  
+    </div>
+    <br/>
+    <a class="btn btn-secondary" ng-click="GoHome()" >Go home</a>
+    <a class="btn btn-secondary" ng-click="AddGame()">Add game</a>
+</div>
+
+<div class="text-center" ng-show="Page == 'View_Page'">
+    <br/>
+    <h2>{{ViewGame.title}}</h2>
+    <br/>
+    <h5>{{ViewGame.description}}</h5>
+    <br/>
+    <table class="table table-striped text-center">
+        <tbody>
+        <tr>
+            <td>Genre</td>
+            <td>{{ViewGame.genre}}</td>
+        </tr>
+        <tr>
+            <td>Studio</td>
+            <td>{{ViewGame.studio}}</td>
+        </tr>
+        <tr>
+            <td>Publisher</td>
+            <td>{{ViewGame.publisher}}</td>
+        </tr>
+        <tr>
+            <td>Cost</td>
+            <td>{{ViewGame.cost}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <div class="text-center">
+        <a class="btn btn-primary" ng-click="ShowGames()">Go back</a>
+    </div>
+</div>
+
+<div class="text-center" ng-show="Page == 'Edit_Page'">
+    <br/>
+    <h3>Edit game: {{GameForEdit.title}}</h3>
+    <br/>
+    <form name="addForm" ng-submit="SubmitEditGame()">
+        <div class="form-group">
+            <label>Title</label>
+            <input class="form-control" ng-model="GameForEdit.title" type="text" name="title"
+                   required placeholder="Enter title">
+        </div>
+        <div class="form-group">
+            <label>Genre</label>
+            <input class="form-control" ng-model="GameForEdit.genre" type="text" name="genre"
+                   required placeholder="Enter genre">
+        </div>
+        <div class="form-group">
+            <label>Studio</label>
+            <input class="form-control" ng-model="GameForEdit.studio" type="text" name="studio"
+                   required placeholder="Enter studio">
+        </div>
+        <div class="form-group">
+            <label>Publisher</label>
+            <input class="form-control" ng-model="GameForEdit.publisher" type="text" name="publisher"
+                   required placeholder="Enter publisher">
+        </div>
+        <div class="form-group">
+            <label>Cost</label>
+            <input class="form-control" ng-model="GameForEdit.cost" type="number" name="cost"
+                   required placeholder="Enter cost">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input class="form-control" ng-model="GameForEdit.description" type="text" name="description"
+                   required placeholder="Enter description">
+        </div>
+        <button class="btn btn-primary" type="submit">Edit game</button>
+        <a class="btn btn-primary" ng-click="ShowGames()">Go back</a>
+    </form>
+</div>
+
+</body>
+
+<script src="js/controllers/gamesController.js" ></script>
+</html>

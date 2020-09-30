@@ -18,7 +18,7 @@ namespace GameCentral.Controllers {
         public async Task<ViewResult> ListGames() => View(await Storage.GetGamesAsync());
 
         [HttpPost]
-        public async Task<RedirectToActionResult> ListGames(string deleteId) {
+        public async Task<RedirectToActionResult> ListGames(int deleteId) {
             await Storage.RemoveGameAsync(deleteId);
             return RedirectToAction("ListGames");
         }
@@ -38,7 +38,7 @@ namespace GameCentral.Controllers {
         }
 
         [HttpGet]
-        public IActionResult EditGame(string id, string title) => View(new Game(){GameId = id, Title = title});
+        public IActionResult EditGame(int id, string title) => View(new Game(){GameId = id, Title = title});
 
         [HttpPost]
         public async Task<IActionResult> EditGame(Game game) {
@@ -55,7 +55,7 @@ namespace GameCentral.Controllers {
 
         public ViewResult About() => View();
 
-        public async Task<ViewResult> GameDetails(string id) => View(await Storage.GetGameAsync(id));
+        public async Task<ViewResult> GameDetails(int id) => View(await Storage.GetGameAsync(id));
         
     }
 }

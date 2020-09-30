@@ -17,6 +17,12 @@ namespace GameCentral.API {
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
             services.AddTransient<IDatabase, MsSqlServerDatabase >();
+            services.AddCors(options => {
+                options
+                    .AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,6 +31,7 @@ namespace GameCentral.API {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

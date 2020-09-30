@@ -33,7 +33,7 @@ namespace GameCentral.Shared.Database {
                         Studio = reader["Studio"] as string,
                         Genre = reader["Genre"] as string,
                         Publisher = reader["Publisher"] as string,
-                        GameId = reader["GameId"].ToString(),
+                        GameId = (int) reader["GameId"],
                         Cost = (int) reader["Cost"]
                     });
                 }
@@ -42,10 +42,10 @@ namespace GameCentral.Shared.Database {
             }
         }
 
-        public async Task RemoveGameAsync(string id) {
+        public async Task RemoveGameAsync(int id) {
             await using var command = new SqlCommand {
                 CommandType = CommandType.Text,
-                CommandText = $"DELETE FROM GameCentral.Products.Games WHERE GameId LIKE \'{id}\'",
+                CommandText = $"DELETE FROM GameCentral.Products.Games WHERE GameId LIKE {id}",
                 Connection = _sqlConnection
             };
             if ((await command.ExecuteNonQueryAsync()) == 0) {
@@ -66,7 +66,7 @@ namespace GameCentral.Shared.Database {
             await using var command = new SqlCommand {
                 CommandType = CommandType.Text,
                 Connection = _sqlConnection,
-                CommandText = $"UPDATE GameCentral.Products.Games SET Title = \'{game.Title}\', Studio = \'{game.Studio}\', Description = \'{game.Description}\', Genre = \'{game.Genre}\', Publisher = \'{game.Publisher}\', Cost = \'{game.Cost}\' WHERE GameId LIKE \'{game.GameId}\'"
+                CommandText = $"UPDATE GameCentral.Products.Games SET Title = \'{game.Title}\', Studio = \'{game.Studio}\', Description = \'{game.Description}\', Genre = \'{game.Genre}\', Publisher = \'{game.Publisher}\', Cost = \'{game.Cost}\' WHERE GameId = {game.GameId}"
             };
             var affectesLines = await command.ExecuteNonQueryAsync();
             if (affectesLines == 0) {
@@ -74,11 +74,11 @@ namespace GameCentral.Shared.Database {
             }
         }
 
-        public async Task<Game> GetGameAsync(string id) {
+        public async Task<Game> GetGameAsync(int id) {
             await using var command = new SqlCommand {
                 Connection = _sqlConnection,
                 CommandType = CommandType.Text,
-                CommandText = $"SELECT * FROM GameCentral.Products.Games WHERE GameId LIKE \'{id}\'"
+                CommandText = $"SELECT * FROM GameCentral.Products.Games WHERE GameId LIKE {id}"
             };
             await using var reader = await command.ExecuteReaderAsync();
             if (!reader.HasRows) {
@@ -90,7 +90,7 @@ namespace GameCentral.Shared.Database {
                 Studio = reader["Studio"] as string,
                 Genre = reader["Genre"] as string,
                 Publisher = reader["Publisher"] as string,
-                GameId = reader["GameId"].ToString(),
+                GameId = (int) reader["GameId"],
                 Description = reader["Description"] as string,
                 Cost = (int) reader["Cost"]
             };
