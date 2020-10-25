@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc;
 using GameCentral.Shared.Database;
 using GameCentral.Shared.Entities;
 using GameCentral.Shared.Exceptions;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
-namespace GameCentral.API.Controllers
-{
-
+namespace GameCentral.API.Controllers {
+    
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ApiController : ControllerBase {
-        private readonly IDatabase _database;
-        
-        public ApiController(IDatabase database) {
-            _database = database;
+        private readonly IGameService _gameService;
+
+        public ApiController(IGameService gameService) {
+            _gameService = gameService;
         }
 
         [HttpGet("games")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Game>>> Get(){
             try {
-                var games =  await _database.GetGamesAsync();
+                var games =  await _gameService.GetGamesAsync();
                 return Ok(games);
             }
             catch (Exception e) {
@@ -32,9 +32,10 @@ namespace GameCentral.API.Controllers
         }
         
         [HttpGet("games/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Game>> Get(int id) {
             try {
-                var game = await _database.GetGameAsync(id);
+                var game = await _gameService.GetGameAsync(id);
                 return Ok(game);
             }
             catch (GameNotExistsException e) {
@@ -48,7 +49,7 @@ namespace GameCentral.API.Controllers
         [HttpDelete("games/{id}")]
         public async Task<IActionResult> Delete(int id) {
             try {
-                await _database.RemoveGameAsync(id);
+                await _gameService.RemoveGameAsync(id);
                 return Ok(id);
             }
             catch (GameNotExistsException e) {
@@ -62,7 +63,7 @@ namespace GameCentral.API.Controllers
         [HttpPost("games")]
         public async Task<IActionResult> Post([FromBody] Game game) {
             try {
-                await _database.AddGameAsync(game);
+                await _gameService.AddGameAsync(game);
                 return CreatedAtAction("Post", game);
             }
             catch (Exception e) {
@@ -74,11 +75,11 @@ namespace GameCentral.API.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] Game game) {
             try {
                 game.GameId = id;
-                await _database.EditGameAsync(game);
+                await _gameService.EditGameAsync(game);
                 return Ok(game);
             }
             catch (GameNotExistsException e) {
-                await _database.AddGameAsync(game);
+                await _gameService.AddGameAsync(game);
                 return CreatedAtAction("Put", game);
             }
             catch (Exception e) {

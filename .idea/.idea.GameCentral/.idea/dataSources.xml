@@ -7,5 +7,11 @@
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://localhost\SQLEXPRESS:1433;database=GameCentral</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="GameCentralAuthDb" uuid="44cafab0-68e4-4976-a8dd-0ddc76bf19f2">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost\SQLEXPRESS:1433;database=GameCentralAuthDb</jdbc-url>
+    </data-source>
   </component>
 </project>

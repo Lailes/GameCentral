@@ -7,12 +7,17 @@
     <ItemGroup>
       <Folder Include="Extensions" />
       <Folder Include="Models" />
+      <Folder Include="Resources\Views" />
       <Folder Include="Views\Shared" />
       <Folder Include="wwwroot\lib" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\GameCentral.Shared\GameCentral.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
     </ItemGroup>
 
 </Project>

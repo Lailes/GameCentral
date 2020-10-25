@@ -1,11 +1,11 @@
-﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameCentral.Shared.Entities;
 
 namespace GameCentral.Shared.Database {
 
-    public interface IDatabase: IDisposable {
+    public interface IGameService: IDisposable {
         Task RemoveGameAsync(int id);
         Task AddGameAsync(Game game);
         Task EditGameAsync(Game game);

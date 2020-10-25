@@ -16,15 +16,15 @@
 <br/>
 <h2 class="text-center">Here list of available games:</h2>
 <br/>
-<div class="text-center">
+<div class="text-center" style="margin-left: 70px; margin-right: 70px">
     @if (Model.Any()) {
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Studio</th>
-                <th>Genre</th>
-                <th>Price</th>
+                <th>@Localizer["Title"]</th>
+                <th>@Localizer["Studio"]</th>
+                <th>@Localizer["Genre"]</th>
+                <th>@Localizer["Price"]</th>
             </tr>
             </thead>
             <tbody>
@@ -37,12 +37,16 @@
                     <td>@game.Genre</td>
                     <td>@(game.Cost + "$")</td>
                     <td width="8%">
-                        <a class="btn btn-light" asp-action="EditGame" asp-route-title=@game.Title asp-route-id=@game.GameId>Edit</a>
+                        <a class="btn btn-light" asp-action="EditGame" asp-route-id=@game.GameId
+                           asp-route-cost=@game.Cost asp-route-description=@game.Description
+                           asp-route-genre=@game.Genre asp-route-title=@game.Title
+                           asp-route-publisher=@game.Publisher asp-route-studio=@game.Studio
+                           asp-route-url=@game.PreviewImageUrl>@Localizer["Edit"]</a>
                     </td>
                     <td width="8%">
                         <form method="post">
                             <input type="hidden" name="deleteId" value=@game.GameId>
-                            <button type="submit" class="btn btn-light">Delete</button>
+                            <button type="submit" class="btn btn-light">@Localizer["Delete"]</button>
                         </form>
                     </td>
                 </tr>
@@ -51,10 +55,10 @@
         </table>
     }
     else {
-        <h2>There are no games yet</h2>
+        <h2>@Localizer["NoGames"]</h2>
     }
-    <h4><a class="btn-primary btn" asp-action="Index">Go to home page</a></h4>
-    <h6><a class="btn btn-secondary" asp-action="AddGame">Add game</a></h6>
+    <h4><a class="btn-primary btn" asp-action="Index">@Localizer["GoHome"]</a></h4>
+    <h6><a class="btn btn-secondary" asp-action="AddGame">@Localizer["AddGame"]</a></h6>
 </div>
 </body>
 </html>

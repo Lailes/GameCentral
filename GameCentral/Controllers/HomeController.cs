@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameCentral.Controllers {
     public class HomeController : Controller {
 
-        public IDatabase Storage { get; }
+        public IGameService Storage { get; }
 
-        public HomeController(IDatabase storage) {
+        public HomeController(IGameService storage) {
             Storage = storage;
         }
 
@@ -38,7 +38,16 @@ namespace GameCentral.Controllers {
         }
 
         [HttpGet]
-        public IActionResult EditGame(int id, string title) => View(new Game(){GameId = id, Title = title});
+        public IActionResult EditGame(
+            int? id,
+            string title,
+            string publisher,        //TODO Refactor this crap
+            string studio,
+            int cost,
+            string genre,
+            string url) => View(new Game() {
+            GameId = id, Title = title, Genre = genre, Studio = studio, Cost = cost, Publisher = publisher, PreviewImageUrl = url
+        });
 
         [HttpPost]
         public async Task<IActionResult> EditGame(Game game) {
@@ -46,7 +55,7 @@ namespace GameCentral.Controllers {
                await Storage.EditGameAsync(game);
             }
             else {
-                return EditGame(game.GameId, game.Title);
+                return EditGame(game.GameId, game.Title, game.Publisher, game.Studio, game.Cost, game.Genre, game.PreviewImageUrl);
             }
 
             return RedirectToAction("ListGames");

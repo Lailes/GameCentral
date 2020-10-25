@@ -13,39 +13,44 @@
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
 </head>
 <body>
-<div class="text-center table-bordered">
+<div class="text-center" style="margin-right: 70px; margin-left: 70px">
     @if (Model != null) {
         <br/>
         <h2>@Model.Title</h2>
         <br/>
-        <h5>@Model.Description</h5>
+        <div style="display: inline-block; padding: 30px; margin-right: 70px; margin-left: 70px">
+            <img id="img" style="border-radius: 5px; float: left; margin-right: 40px" src=@Model.PreviewImageUrl onerror="document.getElementById('img').hidden = true"/> 
+            <div style="display: table-cell; vertical-align: center">
+                <h5>@Model.Description</h5>
+            </div>
+        </div>
         <br/>
         <table class="table table-striped text-center">
             <tbody>
             <tr>
-                <td>Genre</td>
+                <td>@Localizer["Genre"]</td>
                 <td>@Model.Genre</td>
             </tr>
             <tr>
-                <td>Studio</td>
+                <td>@Localizer["Studio"]</td>
                 <td>@Model.Studio</td>
             </tr>
             <tr>
-                <td>Publisher</td>
+                <td>@Localizer["Publisher"]</td>
                 <td>@Model.Publisher</td>
             </tr>
             <tr>
-                <td>Cost</td>
+                <td>@Localizer["Cost"]</td>
                 <td>@Model.Cost</td>
             </tr>
             </tbody>
         </table>
     }
     else {
-        <h2>No game with such Id</h2>   
+        <h2>@Localizer["NoSuchGame"]</h2>   
     }
     <br/>
+        <a class="btn btn-primary" asp-action="ListGames" style="margin: 10px">Go back</a>
 </div>
-    <a class="btn btn-secondary" asp-action="ListGames" style="margin: 10px">Go back</a>
 </body>
 </html>

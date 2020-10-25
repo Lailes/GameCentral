@@ -4,13 +4,13 @@
     <title id="title">Game</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="css/lib/bootstrap.css">
-    <script src="js/lib/angular.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/angular.js"></script>
     <script>
         var app = angular.module("games-app", [])
     </script>
 </head>
-<body id="body" ng-controller="gamesController">
+<body id="body" ng-controller="gamesController" style="padding: 30px; background-image: url(http://equalityevening.com/wp-content/uploads/2015/04/white-polygon-backgrounds-2.jpg)">
 
 <div class="text-center" ng-show="Page == 'Home_Page'">
     <br/>
@@ -21,8 +21,45 @@
     <br/>
     <h4><a class="btn btn-primary" ng-click="ShowGames(true)" >Look for cool video games</a></h4>
     <br/>
+    <h4><a class="btn btn-secondary" ng-click="ShowAuth()">Admin page</a></h4>
+    <br/>
     <h5><a class="btn btn-light" ng-click="About()" >About</a></h5>
 </div>
+
+<div class="text-center container" ng-show="Page == 'Auth_Page'">
+    
+    <form ng-submit="Auth()">
+        <div class="form-group">
+            <label>UserName</label>
+            <input class="form-control" ng-model="AuthData.userName" type="text" name="userName" required placeholder="Enter user name" >
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input class="form-control" ng-model="AuthData.password" type="text" name="password" required placeholder="Enter password"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Auth</button>
+    </form>
+    <br/>
+    <a class="btn btn-primary" ng-click="GoHome()">Go home</a>
+</div>
+
+<div class="text-center container" ng-show="Page == 'AddAdmin_Page'">
+
+    <form ng-submit="AddAdmin()">
+        <div class="form-group">
+            <label>UserName</label>
+            <input class="form-control" ng-model="AddAdminData.userName" type="text" name="userName" required placeholder="Enter user name" >
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input class="form-control" ng-model="AddAdminData.password" type="text" name="password" required placeholder="Enter password"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    <br/>
+    <a class="btn btn-primary" ng-click="GoHome()">Go home</a>
+</div>
+
 
 <div class="text-center" ng-show="Page == 'About_Page'">
     <br/>
@@ -30,7 +67,7 @@
     <br/>
     <h2>Thats all</h2>
     <br/>
-    <a class="btn btn-secondary" ng-click="GoHome('title')">Go home</a>
+    <a class="btn btn-secondary" ng-click="GoHome()">Go home</a>
 </div>
 
 <div class="container" ng-show="Page == 'Add_Page'">
@@ -68,6 +105,11 @@
             <input class="form-control" ng-model="GameAdd.description" type="text" name="description"
                    required placeholder="Enter description">
         </div>
+        <div class="form-group">
+            <label>Preview Image URL</label>
+            <input class="form-control" ng-model="GameAdd.previewImageUrl" type="text" name="previewImageUrl"
+                   required placeholder="Enter description">
+        </div>
         <button class="btn btn-primary" type="submit">Add game</button>
         <a class="btn btn-primary" ng-click="ShowGames()">Go back</a>
     </form>
@@ -103,8 +145,8 @@
             <td>{{game.studio}}</td>
             <td>{{game.genre}}</td>
             <td>{{game.cost}}</td>
-            <td>
-                <a class="btn btn-secondary" ng-click="ShowEditGame(game.gameId, game.title)">Edit</a>
+            <td ng-show="isAuth">
+                <a class="btn btn-secondary" ng-click="ShowEditGame(game)">Edit</a>
                 <a class="btn btn-light" ng-click="DeleteGame(game.gameId)">Delete</a>
             </td>
         </tr>
@@ -117,14 +159,21 @@
     </div>
     <br/>
     <a class="btn btn-secondary" ng-click="GoHome()" >Go home</a>
-    <a class="btn btn-secondary" ng-click="AddGame()">Add game</a>
+    <a class="btn btn-secondary" ng-click="AddGame()" ng-show="isAuth">Add game</a>
+    <a class="btn btn-secondary" ng-click="ShowAddAdmin()" ng-show="isAuth">Add admin</a>
 </div>
 
-<div class="text-center" ng-show="Page == 'View_Page'">
+<div class="text-center" style="padding: 40px" ng-show="Page == 'View_Page'">
     <br/>
     <h2>{{ViewGame.title}}</h2>
     <br/>
-    <h5>{{ViewGame.description}}</h5>
+    <div style="display: inline-block; border-radius: 5px; padding: 30px;">
+        <img id="image" ng-src="{{ViewGame.previewImageUrl}}" onerror="document.getElementById('image').hidden = true" style="border-radius: 5px; float: left; margin-right: 40px">
+        <div style="display: table-cell; vertical-align: center">
+            <h5>{{ViewGame.description}}</h5>
+        </div>
+    </div>
+    <br/>
     <br/>
     <table class="table table-striped text-center">
         <tbody>
@@ -148,7 +197,7 @@
     </table>
     <br/>
     <div class="text-center">
-        <a class="btn btn-primary" ng-click="ShowGames()">Go back</a>
+        <a class="btn btn-primary" ng-click="ShowGames(true)">Go back</a>
     </div>
 </div>
 
@@ -187,12 +236,21 @@
             <input class="form-control" ng-model="GameForEdit.description" type="text" name="description"
                    required placeholder="Enter description">
         </div>
+        <div class="form-group">
+            <label>Preview Image URL</label>
+            <input class="form-control" ng-model="GameForEdit.previewImageUrl" type="text" name="previewImageUrl"
+                   required placeholder="Enter image url">
+        </div>
         <button class="btn btn-primary" type="submit">Edit game</button>
-        <a class="btn btn-primary" ng-click="ShowGames()">Go back</a>
+        <a class="btn btn-primary" ng-click="ShowGames(true)">Go back</a>
     </form>
 </div>
 
-</body>
+<div class="text-center" style="vertical-align: middle" ng-show="Page == 'Load_Page'">
+    <br/>
+    <h2>{{LoadData}}</h2>
+</div>
 
-<script src="js/controllers/gamesController.js" ></script>
+</body>
+<script src="js/gamesController.js" ></script>
 </html>
