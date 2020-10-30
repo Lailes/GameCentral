@@ -110,4 +110,7 @@
 	<data name="About" xml:space="preserve">
 		<value>О нас</value>
 	</data>
+	<data name="WelcomeTitle" xml:space="preserve">
+		<value>Добро пожаловать</value>
+	</data>
 </root>

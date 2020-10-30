@@ -122,10 +122,13 @@
 	<data name="NoGames" xml:space="preserve">
 		<value>Игр нет. Вообще нет.</value>
 	</data>
-	<data name="AddGAme" xml:space="preserve">
+	<data name="AddGame" xml:space="preserve">
 		<value>Добавить игру</value>
 	</data>
 	<data name="GoHome" xml:space="preserve">
-		<value>На домашнюю страницу</value>
+		<value>На главную</value>
+	</data>
+	<data name="GamesTitle" xml:space="preserve">
+		<value>Игры</value>
 	</data>
 </root>

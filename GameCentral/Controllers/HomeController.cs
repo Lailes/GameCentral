@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GameCentral.Shared.Database;
 using GameCentral.Shared.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameCentral.Controllers {
@@ -62,8 +65,18 @@ namespace GameCentral.Controllers {
         }
 
 
+        [HttpPost]
+        public IActionResult SetLocale(string culture, string returnUrl) {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions {Expires = DateTime.UtcNow.AddYears(1)}
+                );
+            return LocalRedirect(returnUrl);
+        }
+        
         public ViewResult About() => View();
-
+        
         public async Task<ViewResult> GameDetails(int id) => View(await Storage.GetGameAsync(id));
         
     }

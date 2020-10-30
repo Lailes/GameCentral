@@ -8,7 +8,7 @@
 <head>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
-    <title>Welcome</title>
+    <title>@Localizer["WelcomeTitle"]</title>
 </head>
 <body>
 <div class="text-center">
@@ -21,6 +21,9 @@
     <h4><a class="btn btn-primary" asp-action="ListGames">@Localizer["LookInvite"]</a></h4>
     <br/>
     <h5><a class="btn btn-light" asp-action="About">@Localizer["About"]</a></h5>
+</div>
+<div class="container">
+    @await Html.PartialAsync("_SelectLocalePartial")
 </div>
 </body>
 </html>

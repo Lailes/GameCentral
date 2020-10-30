@@ -1,4 +1,4 @@
-﻿﻿﻿/**
+﻿/**
  * @license AngularJS v1.8.0
  * (c) 2010-2020 Google, Inc. http://angularjs.org
  * License: MIT

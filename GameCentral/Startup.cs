@@ -25,7 +25,25 @@ namespace GameCentral {
             services.AddDbContext<GameCentralContext>(options => options.UseSqlServer(_configuration["Data:ConnStr"]));
             services.AddTransient<IGameService, EfGameCentralRepository>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddControllersWithViews().AddViewLocalization();
+            services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
+            services.Configure<RequestLocalizationOptions>(options => {
+                var supportedCultures = new[] {
+                    new CultureInfo("en"),
+                    new CultureInfo("ru"),
+                    new CultureInfo("it"),
+                    new CultureInfo("fr"),
+                    new CultureInfo("ja"),
+                    new CultureInfo("pt"),
+                    new CultureInfo("zh"),
+                    new CultureInfo("uk"),
+                    new CultureInfo("bg"),
+                    new CultureInfo("pl"),
+                    new CultureInfo("de"),
+                };
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +55,15 @@ namespace GameCentral {
             var cultures = new[] {
                 new CultureInfo("en"),
                 new CultureInfo("ru"),
+                new CultureInfo("it"),
+                new CultureInfo("fr"),
+                new CultureInfo("ja"),
+                new CultureInfo("pt"),
+                new CultureInfo("zh"),
+                new CultureInfo("uk"),
+                new CultureInfo("bg"),
+                new CultureInfo("pl"),
+                new CultureInfo("de"),
             };
 
             app.UseRequestLocalization(new RequestLocalizationOptions {

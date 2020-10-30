@@ -8,13 +8,13 @@
 
 <html>
 <head>
-    <title>Games</title>
+    <title>@Localizer["GamesTitle"]</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
 </head>
 <body>
 <br/>
-<h2 class="text-center">Here list of available games:</h2>
+<h2 class="text-center">@Localizer["ListHeader"]</h2>
 <br/>
 <div class="text-center" style="margin-left: 70px; margin-right: 70px">
     @if (Model.Any()) {
@@ -38,8 +38,7 @@
                     <td>@(game.Cost + "$")</td>
                     <td width="8%">
                         <a class="btn btn-light" asp-action="EditGame" asp-route-id=@game.GameId
-                           asp-route-cost=@game.Cost asp-route-description=@game.Description
-                           asp-route-genre=@game.Genre asp-route-title=@game.Title
+                           asp-route-cost=@game.Cost asp-route-genre=@game.Genre asp-route-title=@game.Title
                            asp-route-publisher=@game.Publisher asp-route-studio=@game.Studio
                            asp-route-url=@game.PreviewImageUrl>@Localizer["Edit"]</a>
                     </td>
