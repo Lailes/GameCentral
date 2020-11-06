@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>365e5b8c-48e2-47a8-b349-837f11dab0b9</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions" />
-      <Folder Include="Models" />
+      <Folder Include="Views\Security" />
       <Folder Include="wwwroot\lib" />
     </ItemGroup>
 
@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-rc.2.20475.6" />
     </ItemGroup>
 
 </Project>

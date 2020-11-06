@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCentral.API", "GameCent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaProducerLine", "KafkaProducerLine\KafkaProducerLine.csproj", "{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaConsumerLine", "KafkaConsumerLine\KafkaConsumerLine.csproj", "{C9979039-9EBF-416F-A59E-727AF8D9EA63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "Playground\Playground.csproj", "{3914B080-C40C-4460-AC4D-604D6A2C4F08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCentral.DatabaseService", "GameCentral.DatabaseService\GameCentral.DatabaseService.csproj", "{E1735D47-9153-4FA8-A58F-B439EC23B67C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCentral.KafkaWriter", "GameCentral.KafkaWriter\GameCentral.KafkaWriter.csproj", "{3F1110EA-B819-4277-A32C-ACDE6AE929D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +37,14 @@ Global
 		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3914B080-C40C-4460-AC4D-604D6A2C4F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3914B080-C40C-4460-AC4D-604D6A2C4F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3914B080-C40C-4460-AC4D-604D6A2C4F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3914B080-C40C-4460-AC4D-604D6A2C4F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1110EA-B819-4277-A32C-ACDE6AE929D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1110EA-B819-4277-A32C-ACDE6AE929D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1110EA-B819-4277-A32C-ACDE6AE929D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1110EA-B819-4277-A32C-ACDE6AE929D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

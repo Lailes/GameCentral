@@ -1,3 +1,5 @@
+#define LOCAL
+
 using System.Globalization;
 using GameCentral.Shared.Database;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 
 namespace GameCentral {
     public class Startup {
@@ -22,7 +25,14 @@ namespace GameCentral {
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.AddDbContext<GameCentralContext>(options => options.UseSqlServer(_configuration["Data:ConnStr"]));
+            services.AddDbContext<GameCentralContext>(options => {
+#if LOCAL
+                options.UseSqlite(_configuration["Data:LocalDb"]);
+#endif
+#if MSSQL
+                options.UseSqlServer(_configuration["Data:ConnStr"]);
+#endif
+            });
             services.AddTransient<IGameService, EfGameCentralRepository>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();

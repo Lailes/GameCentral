@@ -7,6 +7,7 @@ namespace GameCentral.Shared.Database {
         public DbSet<Game> Games { get; set; }
 
         public GameCentralContext(DbContextOptions<GameCentralContext> options): base(options) {
+            Database.EnsureCreated();
         }
         
     }

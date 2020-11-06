@@ -18,7 +18,7 @@ namespace GameCentral.Shared.Entities {
         public string PreviewImageUrl { get; set; }
 
         public override bool Equals(object? obj) {
-            return (obj is Game game && game.GameId == GameId);
+            return (obj is Game game && (game.GameId == GameId || game.Title == Title));
         }
 
         public override int GetHashCode() {

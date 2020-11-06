@@ -13,21 +13,25 @@ namespace GameCentral.Shared.Database {
             GameCentralContext = gameCentralContext;
         }
 
-        public void Dispose() {
+        public virtual void Dispose() {
         }
 
-        public async Task RemoveGameAsync(int id) {
-            GameCentralContext.Games.Remove(new Game {GameId = id});
+        public virtual async Task RemoveGameAsync(int id) {
+            var game = GameCentralContext.Games.FirstOrDefault(g => g.GameId == id);
+            if (game == null) {
+                return;
+            }
+            GameCentralContext.Games.Remove(game);
             await GameCentralContext.SaveChangesAsync();
         }
 
-        public async Task AddGameAsync(Game game) {
+        public  virtual  async Task AddGameAsync(Game game) {
             game.GameId = 100;
             await GameCentralContext.Games.AddAsync(game);
             await GameCentralContext.SaveChangesAsync();
         }
 
-        public async Task EditGameAsync(Game game) {
+        public virtual  async Task EditGameAsync(Game game) {
 
             var g =
                 from game1 in GameCentralContext.Games
@@ -54,7 +58,7 @@ namespace GameCentral.Shared.Database {
             await GameCentralContext.SaveChangesAsync();
         }
 
-        public async Task<Game> GetGameAsync(int id) {
+        public virtual  async Task<Game> GetGameAsync(int id) {
             return await Task.Run(() => {
                 var game =
                     from game1 in GameCentralContext.Games
@@ -73,7 +77,7 @@ namespace GameCentral.Shared.Database {
             });
         }
 
-        public async Task<IEnumerable<Game>> GetGamesAsync() {
+        public virtual  async Task<IEnumerable<Game>> GetGamesAsync() {
             return await Task.Run(() => GameCentralContext.Games);
         }
     }

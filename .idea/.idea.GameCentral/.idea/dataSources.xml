@@ -13,5 +13,11 @@
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://localhost\SQLEXPRESS:1433;database=GameCentralAuthDb</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="GameCentral SQLite" uuid="6066e0a5-418f-4a9b-bade-ea9f6a30a940">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../../../../Tools/GameCentral.db</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using GameCentral.Shared.Database;
 using GameCentral.Shared.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameCentral.Controllers {
+    [Authorize]
     public class HomeController : Controller {
 
         public IGameService Storage { get; }
@@ -18,6 +20,7 @@ namespace GameCentral.Controllers {
         public ViewResult Index() => View();
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ViewResult> ListGames() => View(await Storage.GetGamesAsync());
 
         [HttpPost]
@@ -66,6 +69,7 @@ namespace GameCentral.Controllers {
 
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult SetLocale(string culture, string returnUrl) {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -75,8 +79,10 @@ namespace GameCentral.Controllers {
             return LocalRedirect(returnUrl);
         }
         
+        [AllowAnonymous]
         public ViewResult About() => View();
         
+        [AllowAnonymous]
         public async Task<ViewResult> GameDetails(int id) => View(await Storage.GetGameAsync(id));
         
     }
