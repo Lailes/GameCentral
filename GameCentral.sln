@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCentral.Shared", "GameC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCentral.API", "GameCentral.API\GameCentral.API.csproj", "{86F9D731-7578-413E-9198-2F8B23761021}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaProducerLine", "KafkaProducerLine\KafkaProducerLine.csproj", "{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaConsumerLine", "KafkaConsumerLine\KafkaConsumerLine.csproj", "{C9979039-9EBF-416F-A59E-727AF8D9EA63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCentral.DatabaseService", "GameCentral.DatabaseService\GameCentral.DatabaseService.csproj", "{E1735D47-9153-4FA8-A58F-B439EC23B67C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{86F9D731-7578-413E-9198-2F8B23761021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86F9D731-7578-413E-9198-2F8B23761021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86F9D731-7578-413E-9198-2F8B23761021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30EEDADE-ADD9-4BEB-8263-5C8B267E988E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9979039-9EBF-416F-A59E-727AF8D9EA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1735D47-9153-4FA8-A58F-B439EC23B67C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
